@@ -37,6 +37,7 @@ public protocol YouTubePlayerDelegate {
     func playerReady(videoPlayer: YouTubePlayerView)
     func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState)
     func playerQualityChanged(videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality)
+    func playerShouldLoadURL(videoPlayer: YouTubePlayerView, url: NSURL?)->Bool
 }
 
 private extension NSURL {
@@ -315,8 +316,8 @@ public class YouTubePlayerView: UIView, UIWebViewDelegate {
 
         // Check if ytplayer event and, if so, pass to handleJSEvent
         if let url = url where url.scheme == "ytplayer" { handleJSEvent(url) }
-
-        return true
+        
+        return delegate?.playerShouldLoadURL(self, url: url) ?? true
     }
 }
 
