@@ -72,6 +72,8 @@ Each `YouTubePlayerView` has methods for controlling the player (play, pause, se
 * `func seekTo(seconds: Float, seekAhead: Bool)`
 * `func previousVideo()`
 * `func nextVideo()`
+* `func getCurrentTime()`
+* `func getDuration()`
 
 Please note that calls to all but the first two methods will result in a JavaScript runtime error if they are called before the player is ready. The player will not be ready until shortly after a call to either `loadVideoURL(videoURL: NSURL)` or `loadVideoID(videoID: String)`. You can check the readiness of the player at any time by checking its `ready: Bool` property. These functions run asynchronously, so it is not guaranteed that a call to a play function will be safe if it immediately follows a call to a load function. I plan to update the library soon to add completion handlers to be called when the player is ready.
 
@@ -85,5 +87,4 @@ In the meantime, you can also the `YouTubePlayerDelegate` method `playerReady(vi
 * `func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState)`
 * `func playerQualityChanged(videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality)`
 
-*Side note:* unfortunately, due to the way Swift protocols work, these are all required delegate methods. Setting a delegate on an instance of `YouTubePlayer` is optional, but any delegate must conform to `YouTubePlayerDelegate` and therefore must implement every one of the above methods. I wish there were a better way around this, but declaring the protocol as an `@objc` protocol means I wouldn't be able to use enum values as arguments, because Swift enums are incompatible with Objective-C enumerations. Feel free to file an issue if you know of some solution that lets us have optional delegate methods as well as the ability to pass Swift enums to these delegate methods.
-
+*Side note:* All these delegate methods are optional which means that you can implement none, all, or some of them in your delegate class.
