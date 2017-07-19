@@ -101,6 +101,14 @@ public class YouTubePlayerView: UIView, UIWebViewDelegate {
     /** Used to respond to player events */
     public var delegate: YouTubePlayerDelegate?
     
+    public var allowsInlineMediaPlayback: Bool {
+        get {
+            return webView.allowsInlineMediaPlayback
+        }
+        set {
+            webView.allowsInlineMediaPlayback = newValue
+        }
+    }
     
     // MARK: Various methods for initialization
     
